@@ -7,7 +7,7 @@ import Container from './components/container';
 import HighChart from './components/highChart';
 
 
-var App = React.createClass({
+var Page2 = React.createClass({
     mixins: [mixins.StoreMixin(appStore)],
 
     /**
@@ -20,7 +20,7 @@ var App = React.createClass({
                 <Container>
                     <HighChart style={{height: 400 + 'px'}} type="column" title="区属各小学成绩分布情况统计表" yTitle="人数" seriesName="人数"
                                legend={true} unit="人" colorByPoint={false} dataLabels={true}
-                               xCategories={["第一小学", "第二小学", "第三小学", "第四小学"]}
+                               xCategories={["第一小学", "第二小学", "第三小学", "第四小学"]} clickEvent={true}
                                data={this.state.get('chart3')}
                         />
                 </Container>
@@ -29,6 +29,4 @@ var App = React.createClass({
     }
 });
 
-
-//render
-React.render(<App />, document.body);
+module.exports = Page2;

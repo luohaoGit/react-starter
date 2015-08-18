@@ -11,7 +11,7 @@ let Column = FixedDataTable.Column;
 let ColumnGroup = FixedDataTable.ColumnGroup;
 let Table = FixedDataTable.Table;
 
-var App = React.createClass({
+var Page1 = React.createClass({
     mixins: [mixins.StoreMixin(appStore)],
 
     _rowGetter(index){
@@ -36,7 +36,7 @@ var App = React.createClass({
                         rowGetter={this._rowGetter}
                         rowsCount={30}
                         width={1200}
-                        height={500}
+                        height={300}
                         scrollTop={0}
                         scrollLeft={0}
                         overflowX="auto"
@@ -71,6 +71,4 @@ var App = React.createClass({
     }
 });
 
-
-//render
-React.render(<App />, document.body);
+module.exports = Page1;

@@ -2,7 +2,7 @@
   "name": "react-start",
   "version": "0.0.1",
   "description": "react-start",
-  "main": "assets/app.js",
+  "main": "assets/router.js",
   "scripts": {
     "start": "webpack-dev-server --color --watch --port 8000",
     "test": "echo \"Error: no test specified\" && exit 1"
