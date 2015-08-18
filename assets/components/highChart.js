@@ -1,7 +1,6 @@
 import React from 'react/addons';
 let PureRenderMixin = React.addons.PureRenderMixin;
 import Router from 'react-router';
-let {Link} = Router;
 
 var HighChart = React.createClass({
 	mixins: [PureRenderMixin],
@@ -26,7 +25,7 @@ var HighChart = React.createClass({
 
 	componentDidMount() {
 		var {className, type, title, subTitle, xType, yTitle, legend, seriesName, dataLabels,
-			clickEvent, xCategories, Categories, colorByPoint, unit, data, ...other} = this.props;
+			clickEvent, xCategories, colorByPoint, unit, data, ...other} = this.props;
 
 		var series = [{
 			name: seriesName,
@@ -42,7 +41,10 @@ var HighChart = React.createClass({
 
 		if(clickEvent){
 			events.click = function(e) {
-				alert(e.point.category);
+				//alert(e.point.category);
+				var a = document.createElement('a');
+				a.href = "#/page1";
+				a.click();
 			}
 		}
 
