@@ -12,7 +12,7 @@ var HighChart = React.createClass({
 
 	getDefaultProps() {
 		return {
-			xType: 'category'
+
 		};
 	},
 
@@ -24,7 +24,17 @@ var HighChart = React.createClass({
 
 	componentDidMount() {
 		var {className, type, title, subTitle, xType, yTitle, legend, seriesName, dataLabels,
-			headerFormat, pointFormat, colorByPoint, unit, data, ...other} = this.props;
+			xCategories, colorByPoint, unit, data, ...other} = this.props;
+
+		var series = [{
+			name: seriesName,
+			colorByPoint: colorByPoint,
+			data: data.toJS()
+		}];
+
+		if(xCategories && xCategories.length > 0){
+			series = data.toJS();
+		}
 
 		$(React.findDOMNode(this)).highcharts({
 			chart: {
@@ -37,9 +47,11 @@ var HighChart = React.createClass({
 				text: subTitle
 			},
 			xAxis: {
-				type: xType
+				type: xType,
+				categories: xCategories
 			},
 			yAxis: {
+				min: 0,
 				title: {
 					text: yTitle
 				}
@@ -52,6 +64,12 @@ var HighChart = React.createClass({
 					borderWidth: 0,
 					dataLabels: {
 						enabled: dataLabels
+					},
+					cursor: 'pointer',
+					events: {
+						click: function(e) {
+							alert(e.point.category);
+						}
 					}
 				}
 			},
@@ -61,11 +79,7 @@ var HighChart = React.createClass({
 				pointFormat: "<span style='color:{point.color}'>{point.name}</span>: <b>{point.y}</b>" + unit + "<br/>"
 			},
 
-			series: [{
-				name: seriesName,
-				colorByPoint: colorByPoint,
-				data: data.toJS()
-			}],
+			series: series,
 
 			credits: {
 				enabled:false

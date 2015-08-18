@@ -4,7 +4,6 @@ import {msg, mixins} from 'iflux';
 import appStore from './store';
 
 import Container from './components/container';
-import Table from './components/table';
 import HighChart from './components/highChart';
 
 
@@ -15,19 +14,14 @@ var App = React.createClass({
      * virtualdom
      */
     render() {
-        var store = appStore.data();
 
         return (
             <div>
                 <Container>
-                    <Table />
-                    <HighChart style={{height: 400 + 'px'}} type="column" title="区属小学总体考试成绩分布情况" yTitle="人数" seriesName="人数"
-                               legend={false} unit="人" colorByPoint={false} dataLabels={true}
-                               data={store.get('chart1')}
-                        />
-                    <HighChart style={{height: 400 + 'px'}} type="column" title="区属各学校平均成绩对比表" yTitle="分数" seriesName="平均分"
-                               legend={false} unit="分" colorByPoint={true} dataLabels={true}
-                               data={store.get('chart2')}
+                    <HighChart style={{height: 400 + 'px'}} type="column" title="区属各小学成绩分布情况统计表" yTitle="人数" seriesName="人数"
+                               legend={true} unit="人" colorByPoint={false} dataLabels={true}
+                               xCategories={["第一小学", "第二小学", "第三小学", "第四小学"]}
+                               data={this.state.get('chart3')}
                         />
                 </Container>
             </div>
