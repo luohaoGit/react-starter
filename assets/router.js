@@ -2,8 +2,11 @@ var React = require('react');
 var Router = require('react-router');
 var { Route, RouteHandler, Link } = Router;
 
-var Page1 = require('./app_1');
-var Page2 = require('./app_2');
+var Area = require('./area');
+var School = require('./school');
+var SchoolClass = require('./schoolClass');
+var Clazz = require('./clazz');
+var ClazzStu = require('./clazzStu');
 
 var App = React.createClass({
 
@@ -16,7 +19,7 @@ var App = React.createClass({
 		return (
 			<div>
 				<ul>
-					<li><Link to="page1">Page 1</Link><Link to="page2">Page 2</Link></li>
+					<li><Link to="area">区域     </Link><Link to="school">学校     </Link><Link to="clazz">班级     </Link></li>
 				</ul>
 				<RouteHandler key={name}/>
 			</div>
@@ -27,10 +30,11 @@ var App = React.createClass({
 
 var routes = (
 	<Route handler={App}>
-		<Route name="page1" handler={Page1} />
-		<Route name="page2" handler={Page2}>
-
-		</Route>
+		<Route name="area" handler={Area} />
+		<Route name="school" handler={School}/>
+		<Route name="schoolClass/:id" handler={SchoolClass} />
+		<Route name="clazz" handler={Clazz} />
+		<Route name="clazzStu/:id" handler={ClazzStu} />
 	</Route>
 );
 

@@ -13,7 +13,8 @@ var HighChart = React.createClass({
 
 	getDefaultProps() {
 		return {
-			clickEvent: false
+			clickEvent: false,
+			stackColumn: false
 		};
 	},
 
@@ -25,7 +26,8 @@ var HighChart = React.createClass({
 
 	componentDidMount() {
 		var {className, type, title, subTitle, xType, yTitle, legend, seriesName, dataLabels,
-			clickEvent, xCategories, colorByPoint, unit, data, ...other} = this.props;
+			stackColumn, clickEvent, xCategories, colorByPoint, unit, data,
+			link, ...other} = this.props;
 
 		var series = [{
 			name: seriesName,
@@ -38,17 +40,16 @@ var HighChart = React.createClass({
 		}
 
 		var events = {}
-
 		if(clickEvent){
 			events.click = function(e) {
 				//alert(e.point.category);
 				var a = document.createElement('a');
-				a.href = "#/page1";
+				a.href = link;
 				a.click();
 			}
 		}
 
-		$(React.findDOMNode(this)).highcharts({
+		var chartConfig = {
 			chart: {
 				type: type
 			},
@@ -92,7 +93,27 @@ var HighChart = React.createClass({
 			credits: {
 				enabled:false
 			}
-		});
+		}
+
+		if(stackColumn){
+			chartConfig.plotOptions.column = {
+				stacking: 'normal',
+				dataLabels: {
+					enabled: true,
+					color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+					style: {
+						textShadow: '0 0 3px black'
+					}
+				}
+			};
+			chartConfig.tooltip.formatter = function () {
+				return '<b>' + this.x + '</b><br/>' +
+					this.series.name + ': ' + this.y + '<br/>' +
+					'Total: ' + this.point.stackTotal;
+			}
+		}
+
+		$(React.findDOMNode(this)).highcharts(chartConfig);
 	}
 });
 

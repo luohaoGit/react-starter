@@ -11,7 +11,7 @@ let Column = FixedDataTable.Column;
 let ColumnGroup = FixedDataTable.ColumnGroup;
 let Table = FixedDataTable.Table;
 
-var Page1 = React.createClass({
+var Area = React.createClass({
     mixins: [mixins.StoreMixin(appStore)],
 
     _rowGetter(index){
@@ -34,7 +34,7 @@ var Page1 = React.createClass({
                         groupHeaderHeight={30}
                         headerHeight={30}
                         rowGetter={this._rowGetter}
-                        rowsCount={30}
+                        rowsCount={10}
                         width={1200}
                         height={300}
                         scrollTop={0}
@@ -71,4 +71,4 @@ var Page1 = React.createClass({
     }
 });
 
-module.exports = Page1;
+module.exports = Area;
