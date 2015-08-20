@@ -10,7 +10,6 @@
   "author": "luohao",
   "license": "ISC",
   "dependencies": {
-    "fixed-data-table": "^0.4.6",
     "iflux": "^1.0.7",
     "immutable": "^3.7.2",
     "react": "^0.13.3",

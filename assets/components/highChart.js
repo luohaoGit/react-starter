@@ -14,7 +14,8 @@ var HighChart = React.createClass({
 	getDefaultProps() {
 		return {
 			clickEvent: false,
-			stackColumn: false
+			stackColumn: false,
+			xType: "category"
 		};
 	},
 
