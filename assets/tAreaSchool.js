@@ -18,10 +18,10 @@ var TAreaSchool = React.createClass({
         return (
             <div>
                 <Container>
-                    <HighChart style={{height: 400 + 'px'}} type="column" title="区属各小学成绩分布情况统计表" yTitle="人数" seriesName="人数"
-                               legend={true} unit="人" colorByPoint={false} dataLabels={true}
-                               xCategories={["第一小学", "第二小学", "第三小学", "第四小学"]} clickEvent={true} link="#/schoolClass/987"
-                               data={this.state.get('chart3')}
+                    <HighChart style={{height: 400 + 'px'}} type="column" title="同一知识点所有学校对比统计" yTitle="得分率（%）" seriesName="得分率"
+                               legend={true} unit="%" colorByPoint={false} dataLabels={true}
+                               xCategories={["利用商不变的规律进行简便计算"]} clickEvent={true} link="#/tSchoolClazz"
+                               data={this.state.get('chart12')}
                         />
                 </Container>
             </div>

@@ -9,6 +9,9 @@ var Clazz = require('./clazz');
 var ClazzStu = require('./clazzStu');
 var TArea = require('./tArea');
 var TAreaSchool = require('./tAreaSchool');
+var TSchoolClazz = require('./tSchoolClazz');
+var TClazzStu = require('./tClazzStu');
+var TStu = require('./tStu');
 
 var App = React.createClass({
 
@@ -45,6 +48,9 @@ var routes = (
 
 		<Route name="tArea" handler={TArea} />
 		<Route name="tAreaSchool" handler={TAreaSchool} />
+		<Route name="tSchoolClazz" handler={TSchoolClazz} />
+		<Route name="tClazzStu" handler={TClazzStu} />
+		<Route name="tStu" handler={TStu} />
 	</Route>
 );
 

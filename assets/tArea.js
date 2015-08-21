@@ -117,6 +117,7 @@ var Area = React.createClass({
                             <th>区平均分</th>
                             <th>区得分率</th>
                         </tr>
+                        </thead>
                         <tbody>
                         <tr>
                             <td rowSpan="6">第一小学</td><td>知识点1</td><td>87</td><td>95</td><td>67</td><td>67</td><td>34</td>
@@ -149,7 +150,6 @@ var Area = React.createClass({
                             </div>
                         </th>
                         </tr></tfoot>
-                        </thead>
                     </table>
 
                     <HighChart style={{height: 400 + 'px'}} type="column" title="区属各学校知识点得分率比较统计图" yTitle="得分率（%）" seriesName="得分率"

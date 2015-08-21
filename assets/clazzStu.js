@@ -36,6 +36,7 @@ var ClazzStu = React.createClass({
                             <th>D 60-69分</th>
                             <th>E 59分</th>
                         </tr>
+                        </thead>
                         <tbody>
                         <tr>
                             <td>学生1</td><td>82</td><td>100</td><td>86</td><td>87%</td><td>95%</td><td>569</td><td>597</td><td>377</td><td>270</td><td>54</td>
@@ -65,7 +66,6 @@ var ClazzStu = React.createClass({
                             </div>
                         </th>
                         </tr></tfoot>
-                        </thead>
                     </table>
                     <HighChart style={{height: 400 + 'px'}} type="column" title="四一班学生考试成绩分布情况表" yTitle="人数" seriesName="人数"
                                legend={false} unit="人" colorByPoint={false} dataLabels={true} xType="category"
