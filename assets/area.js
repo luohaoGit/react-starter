@@ -1,7 +1,7 @@
 import React from 'react';
 import {msg, mixins} from 'iflux';
-//数据中心
 import appStore from './store';
+import {GET_SCH_REPORT} from './const';
 
 import Container from './components/container';
 import HighChart from './components/highChart';
@@ -9,11 +9,14 @@ import HighChart from './components/highChart';
 var Area = React.createClass({
     mixins: [mixins.StoreMixin(appStore)],
 
+    componentDidMount() {
+        msg.emit(GET_SCH_REPORT, 1);
+    },
+
     /**
      * virtualdom
      */
     render() {
-
         return (
             <div>
                 <Container>
@@ -38,24 +41,23 @@ var Area = React.createClass({
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>区平均</td><td>83</td><td>100</td><td>53</td><td>87%</td><td>95%</td><td>569</td><td>597</td><td>377</td><td>270</td><td>54</td>
-                        </tr>
-                        <tr>
-                            <td>第一小学</td><td>82</td><td>100</td><td>86</td><td>87%</td><td>95%</td><td>569</td><td>597</td><td>377</td><td>270</td><td>54</td>
-                        </tr>
-                        <tr>
-                            <td>第二小学</td><td>83</td><td>100</td><td>53</td><td>87%</td><td>95%</td><td>569</td><td>597</td><td>377</td><td>270</td><td>54</td>
-                        </tr>
-                        <tr>
-                            <td>第三小学</td><td>83</td><td>100</td><td>53</td><td>87%</td><td>95%</td><td>569</td><td>597</td><td>377</td><td>270</td><td>54</td>
-                        </tr>
-                        <tr>
-                            <td>第四小学</td><td>83</td><td>100</td><td>53</td><td>87%</td><td>95%</td><td>569</td><td>597</td><td>377</td><td>270</td><td>54</td>
-                        </tr>
-                        <tr>
-                            <td>第五小学</td><td>83</td><td>100</td><td>53</td><td>87%</td><td>95%</td><td>569</td><td>597</td><td>377</td><td>270</td><td>54</td>
-                        </tr>
+                        {this.state.get('schReport').map(function (item) {
+                            console.log(item.toJS());
+                            return
+                            <tr>
+                                <td>{item.get('schname')}</td>
+                                <td>{item.get('ave_score')}</td>
+                                <td>{item.get('max_score')}</td>
+                                <td>{item.get('min_score')}</td>
+                                <td>{item.get('excellence_rate')}</td>
+                                <td>{item.get('pass_rate')}</td>
+                                <td>{item.get('alv')}</td>
+                                <td>{item.get('blv')}</td>
+                                <td>{item.get('clv')}</td>
+                                <td>{item.get('dlv')}</td>
+                                <td>{item.get('elv')}</td>
+                            </tr>
+                        }).toArray()}
                         </tbody>
                         <tfoot>
                         <tr><th colSpan="11">

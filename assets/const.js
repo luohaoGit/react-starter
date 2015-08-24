@@ -2,9 +2,7 @@
  * constant
  */
 export default {
-  INPUT_CHANGE: 'inputChange',
-  TODO_LIST_TOGGLE: 'todoListToggle',
-  TODO_LIST_DESTROY: 'destroyTodoList',
-  TODO_LIST_TOGGLE_ALL: 'todoListToggleAll',
-  TODO_SAVE: 'saveTodo'
+    GET_SCH_REPORT: "getSchReport",
+    GET_CLASS_REPORT: "getClassReport",
+    GET_STU_REPORT: "getStuReport"
 };

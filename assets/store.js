@@ -1,11 +1,12 @@
 import {Store, msg} from 'iflux';
+import Immutable from 'immutable';
 import {
-    INPUT_CHANGE,
-    TODO_LIST_TOGGLE,
-    TODO_LIST_DESTROY,
-    TODO_LIST_TOGGLE_ALL,
-    TODO_SAVE
+    GET_SCH_REPORT,
+    GET_CLASS_REPORT,
+    GET_STU_REPORT
 } from './const';
+
+import webApi from './webapi';
 
 /**
  * generate uuid
@@ -22,7 +23,10 @@ var uuid = (function() {
  * 整个应用的数据中心
  *
  */
-let appStore =  Store({
+let appStore = Store({
+
+  schReport: [],
+
   table1: {},
 
   chart1: [{
@@ -185,11 +189,19 @@ let appStore =  Store({
 export default appStore;
 
 
-/*msg.on(INPUT_CHANGE, (value) => {
-  appStore.cursor().set('inputValue', value);
+msg.on(GET_SCH_REPORT, (value) => {
+  webApi
+      .getSchReport()
+      .done((result) => {
+        appStore
+            .cursor()
+            .set('schReport', Immutable.fromJS(result.data));
+      });
 });
 
 
+
+/*
 msg.on(TODO_LIST_TOGGLE, (id) => {
   appStore.cursor().updateIn(['todo', id, 'done'], function(done) {
     return !done;
