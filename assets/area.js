@@ -41,22 +41,22 @@ var Area = React.createClass({
                         </tr>
                         </thead>
                         <tbody>
-                        {this.state.get('schReport').map(function (item) {
-                            console.log(item.toJS());
-                            return
-                            <tr>
-                                <td>{item.get('schname')}</td>
-                                <td>{item.get('ave_score')}</td>
-                                <td>{item.get('max_score')}</td>
-                                <td>{item.get('min_score')}</td>
-                                <td>{item.get('excellence_rate')}</td>
-                                <td>{item.get('pass_rate')}</td>
-                                <td>{item.get('alv')}</td>
-                                <td>{item.get('blv')}</td>
-                                <td>{item.get('clv')}</td>
-                                <td>{item.get('dlv')}</td>
-                                <td>{item.get('elv')}</td>
-                            </tr>
+                        {this.state.get('schReport').map(function (v, k) {
+                            return (
+                                <tr key={k}>
+                                    <td>{v.get('schname')}</td>
+                                    <td>{v.get('ave_score')}</td>
+                                    <td>{v.get('max_score')}</td>
+                                    <td>{v.get('min_score')}</td>
+                                    <td>{v.get('excellence_rate')}%</td>
+                                    <td>{v.get('pass_rate')}%</td>
+                                    <td>{v.get('alv')}人</td>
+                                    <td>{v.get('blv')}人</td>
+                                    <td>{v.get('clv')}人</td>
+                                    <td>{v.get('dlv')}人</td>
+                                    <td>{v.get('elv')}人</td>
+                                </tr>
+                            )
                         }).toArray()}
                         </tbody>
                         <tfoot>
