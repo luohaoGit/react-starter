@@ -4,7 +4,6 @@ var { Route, RouteHandler, Link, DefaultRoute } = Router;
 
 var Area = require('./area');
 var School = require('./school');
-var SchoolClazz = require('./schoolClazz');
 var Clazz = require('./clazz');
 var ClazzStu = require('./clazzStu');
 var TArea = require('./tArea');
@@ -26,7 +25,6 @@ var App = React.createClass({
 				<ul>
 					<li>
 						<Link to="area">区域     </Link>
-						<Link to="school">学校     </Link>
 						<Link to="clazz">班级     </Link>
 						<Link to="tArea">t区域     </Link>
 					</li>
@@ -40,10 +38,9 @@ var App = React.createClass({
 
 var routes = (
 	<Route handler={App}>
-		<Route path="area" name="area" handler={Area} />
+		<Route name="area" handler={Area} />
 
-		<Route path="school" name="school" handler={School} />
-		<Route path="school/schoolClass/:id" name="schoolClass" handler={SchoolClazz} />
+		<Route name="school/:id" handler={School} />
 
 		<Route name="clazz" handler={Clazz} />
 		<Route name="clazzStu/:id" handler={ClazzStu} />

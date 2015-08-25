@@ -44,7 +44,7 @@ var Area = React.createClass({
                         <tbody>
                         {this.state.getIn(['schReport', 'scoreTable']).map(function (v, k) {
                             return (
-                                <tr key={k}>
+                                <tr key={k} id={v.get('schid')}>
                                     <td>{v.get('schname')}</td>
                                     <td>{v.get('ave_score')}</td>
                                     <td>{v.get('max_score')}</td>
@@ -84,7 +84,7 @@ var Area = React.createClass({
                     <HighChart style={{height: 400 + 'px'}} type="column" title="区属各小学成绩分布情况统计表" yTitle="人数" seriesName="人数"
                                legend={true} unit="人" colorByPoint={false} dataLabels={true}
                                xCategories={this.state.getIn(['schReport', 'schScoreChart', 'categories']).toJS()}
-                               clickEvent={true} link="#/school/schoolClass/987"
+                               clickEvent={true} link="#/school/987"
                                data={this.state.getIn(['schReport', 'schScoreChart', 'data']).toJS()}
                         />
                 </Container>

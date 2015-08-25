@@ -35,6 +35,10 @@ let appStore = Store({
     }
   },
 
+  classReport: {
+    classScoreTable: []
+  },
+
   chart4: [{
     name: 'A 90-100分',
     data: [49, 71, 106, 129]
@@ -234,9 +238,15 @@ msg.on(GET_SCH_REPORT, (value) => {
 
 msg.on(GET_CLASS_REPORT, (value) => {
   webApi
-      .getSchReport()
+      .getClassReport()
       .done((result) => {
-        console.log(result)
+        let data = Immutable.fromJS(result.data);
+
+        let classReport = Immutable.fromJS({
+          scoreTable: data
+        })
+
+        appStore.cursor().set('classReport', classReport);
       });
 });
 
