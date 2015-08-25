@@ -1,6 +1,5 @@
 import React from 'react/addons';
 let PureRenderMixin = React.addons.PureRenderMixin;
-import Router from 'react-router';
 
 var HighChart = React.createClass({
 	mixins: [PureRenderMixin],

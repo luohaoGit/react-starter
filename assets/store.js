@@ -28,26 +28,12 @@ let appStore = Store({
   schReport: {
     scoreTable: [],
     stuNumChart: [],
-    avgScoreChart: []
+    avgScoreChart: [],
+    schScoreChart: {
+      categories: [],
+      data: []
+    }
   },
-
-
-  chart3: [{
-    name: 'A 90-100分',
-    data: [49, 71, 106, 129]
-  }, {
-    name: 'B 80-89分',
-    data: [83, 78, 98, 93]
-  }, {
-    name: 'C 70-79分',
-    data: [48, 38, 39, 41]
-  }, {
-    name: 'D 60-69分',
-    data: [42, 33, 34, 39]
-  }, {
-    name: 'E 59分以下',
-    data: [42, 33, 34, 39]
-  }],
 
   chart4: [{
     name: 'A 90-100分',
@@ -166,22 +152,30 @@ msg.on(GET_SCH_REPORT, (value) => {
       .getSchReport()
       .done((result) => {
         let data = Immutable.fromJS(result.data);
-        appStore.cursor().setIn(['schReport', 'scoreTable'], data);
 
         let aToE = [0, 0, 0, 0, 0];
+        let schScore = [[], [], [], [], []];
+        let schScoreCategries = [];
         let avgScoreChart = data.map(function (v, i) {
           if(i < data.size - 1) {
             let
-                a = v.get('alv'),
-                b = v.get('blv'),
-                c = v.get('clv'),
-                d = v.get('dlv'),
-                e = v.get('elv');
-            aToE[0] = aToE[0] + getIntWithDefault(a);
-            aToE[1] = aToE[1] + getIntWithDefault(b);
-            aToE[2] = aToE[2] + getIntWithDefault(c);
-            aToE[3] = aToE[3] + getIntWithDefault(d);
-            aToE[4] = aToE[4] + getIntWithDefault(e);
+                a = getIntWithDefault(v.get('alv')),
+                b = getIntWithDefault(v.get('blv')),
+                c = getIntWithDefault(v.get('clv')),
+                d = getIntWithDefault(v.get('dlv')),
+                e = getIntWithDefault(v.get('elv'));
+            aToE[0] = aToE[0] + a;
+            aToE[1] = aToE[1] + b;
+            aToE[2] = aToE[2] + c;
+            aToE[3] = aToE[3] + d;
+            aToE[4] = aToE[4] + e;
+
+            schScoreCategries.push(v.get('schname'));
+            schScore[0].push(a);
+            schScore[1].push(b);
+            schScore[2].push(c);
+            schScore[3].push(d);
+            schScore[4].push(e);
           }
 
           return {
@@ -207,8 +201,42 @@ msg.on(GET_SCH_REPORT, (value) => {
                 y: aToE[4]
               }]);
 
-        appStore.cursor().setIn(['schReport', 'stuNumChart'], stuNumChart);
-        appStore.cursor().setIn(['schReport', 'avgScoreChart'], avgScoreChart);
+        let schScoreChart = Immutable.fromJS([{
+                name: "A 90-100分",
+                data: schScore[0]
+              }, {
+                name: "B 80-89分",
+                data: schScore[1]
+              }, {
+                name: "C 70-79分",
+                data: schScore[2]
+              }, {
+                name: "D 60-69分",
+                data: schScore[3]
+              }, {
+                name: "E 59分以下",
+                data: schScore[4]
+              }]);
+
+        let schReport = Immutable.fromJS({
+          scoreTable: data,
+          stuNumChart: stuNumChart,
+          avgScoreChart: avgScoreChart,
+          schScoreChart: {
+            categories: Immutable.fromJS(schScoreCategries),
+            data: schScoreChart
+          }
+        })
+
+        appStore.cursor().set('schReport', schReport);
+      });
+});
+
+msg.on(GET_CLASS_REPORT, (value) => {
+  webApi
+      .getSchReport()
+      .done((result) => {
+        console.log(result)
       });
 });
 

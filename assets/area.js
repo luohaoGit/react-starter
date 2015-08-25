@@ -81,6 +81,12 @@ var Area = React.createClass({
                                legend={false} unit="分" colorByPoint={true} dataLabels={true} xType="category"
                                data={this.state.getIn(['schReport', 'avgScoreChart']).toJS()}
                         />
+                    <HighChart style={{height: 400 + 'px'}} type="column" title="区属各小学成绩分布情况统计表" yTitle="人数" seriesName="人数"
+                               legend={true} unit="人" colorByPoint={false} dataLabels={true}
+                               xCategories={this.state.getIn(['schReport', 'schScoreChart', 'categories']).toJS()}
+                               clickEvent={true} link="#/school/schoolClass/987"
+                               data={this.state.getIn(['schReport', 'schScoreChart', 'data']).toJS()}
+                        />
                 </Container>
             </div>
         );

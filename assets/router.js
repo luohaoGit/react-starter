@@ -1,10 +1,10 @@
 var React = require('react');
 var Router = require('react-router');
-var { Route, RouteHandler, Link } = Router;
+var { Route, RouteHandler, Link, DefaultRoute } = Router;
 
 var Area = require('./area');
 var School = require('./school');
-var SchoolClass = require('./schoolClass');
+var SchoolClazz = require('./schoolClazz');
 var Clazz = require('./clazz');
 var ClazzStu = require('./clazzStu');
 var TArea = require('./tArea');
@@ -40,9 +40,11 @@ var App = React.createClass({
 
 var routes = (
 	<Route handler={App}>
-		<Route name="area" handler={Area} />
-		<Route name="school" handler={School}/>
-		<Route name="schoolClass/:id" handler={SchoolClass} />
+		<Route path="area" name="area" handler={Area} />
+
+		<Route path="school" name="school" handler={School} />
+		<Route path="school/schoolClass/:id" name="schoolClass" handler={SchoolClazz} />
+
 		<Route name="clazz" handler={Clazz} />
 		<Route name="clazzStu/:id" handler={ClazzStu} />
 
