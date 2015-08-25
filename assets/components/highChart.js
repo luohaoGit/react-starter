@@ -20,12 +20,20 @@ var HighChart = React.createClass({
 	},
 
 	render() {
+		console.log("highchart render..." + this.props.title);
 		return (
 			<div style={this.props.style}></div>
 		);
 	},
 
 	componentDidMount() {
+		this.renderChart();
+	},
+	componentDidUpdate() {
+		this.renderChart();
+	},
+
+	renderChart() {
 		var {className, type, title, subTitle, xType, yTitle, legend, seriesName, dataLabels,
 			stackColumn, clickEvent, xCategories, colorByPoint, unit, data,
 			link, ...other} = this.props;
@@ -33,11 +41,11 @@ var HighChart = React.createClass({
 		var series = [{
 			name: seriesName,
 			colorByPoint: colorByPoint,
-			data: data.toJS()
+			data: data
 		}];
 
 		if(xCategories && xCategories.length > 0){
-			series = data.toJS();
+			series = data;
 		}
 
 		var events = {}

@@ -69,7 +69,7 @@ var ClazzStu = React.createClass({
                     </table>
                     <HighChart style={{height: 400 + 'px'}} type="column" title="四一班学生考试成绩分布情况表" yTitle="人数" seriesName="人数"
                                legend={false} unit="人" colorByPoint={false} dataLabels={true} xType="category"
-                               data={this.state.get('chart6')}
+                               data={this.state.get('chart6').toJS()}
                         />
                 </Container>
             </div>

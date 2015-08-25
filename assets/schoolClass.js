@@ -73,7 +73,7 @@ var SchoolClass = React.createClass({
                     </table>
                     <HighChart style={{height: 400 + 'px'}} type="column" title="第一小学四年级考试成绩分布情况表" yTitle="人数" seriesName="人数"
                                legend={true} unit="人" colorByPoint={false} dataLabels={true} stackColumn={true}
-                               xCategories={["四一班", "四二班", "四三班", "四四班"]}  data={this.state.get('chart4')}
+                               xCategories={["四一班", "四二班", "四三班", "四四班"]}  data={this.state.get('chart4').toJS()}
                         />
                 </Container>
             </div>

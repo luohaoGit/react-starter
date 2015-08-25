@@ -155,7 +155,7 @@ var Area = React.createClass({
                     <HighChart style={{height: 400 + 'px'}} type="column" title="区属各学校知识点得分率比较统计图" yTitle="得分率（%）" seriesName="得分率"
                                legend={true} unit="%" colorByPoint={true} dataLabels={true}
                                xCategories={["知识点1", "知识点2", "知识点3", "知识点4"]} clickEvent={true} link="#/tAreaSchool"
-                               data={this.state.get('chart8')}
+                               data={this.state.get('chart8').toJS()}
                         />
                 </Container>
             </div>

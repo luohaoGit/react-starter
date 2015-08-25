@@ -25,43 +25,12 @@ var uuid = (function() {
  */
 let appStore = Store({
 
-  schReport: [],
+  schReport: {
+    scoreTable: [],
+    stuNumChart: [],
+    avgScoreChart: []
+  },
 
-  table1: {},
-
-  chart1: [{
-    name: "A 90-100分",
-    y: 569
-  }, {
-    name: "B 80-89分",
-    y: 597
-  }, {
-    name: "C 70-79分",
-    y: 377
-  }, {
-    name: "D 60-69分",
-    y: 270
-  }, {
-    name: "E 59分以下",
-    y: 54
-  }],
-
-  chart2: [{
-    name: "区平均",
-    y: 83
-  }, {
-    name: "第一小学",
-    y: 82
-  }, {
-    name: "第二小学",
-    y: 86
-  }, {
-    name: "第三小学",
-    y: 81
-  }, {
-    name: "第四小学",
-    y: 83
-  }],
 
   chart3: [{
     name: 'A 90-100分',
@@ -188,14 +157,58 @@ let appStore = Store({
 
 export default appStore;
 
+function getIntWithDefault(v){
+  return isNaN(parseInt(v)) ? 0 : parseInt(v);
+}
 
 msg.on(GET_SCH_REPORT, (value) => {
   webApi
       .getSchReport()
       .done((result) => {
-        appStore
-            .cursor()
-            .set('schReport', Immutable.fromJS(result.data));
+        let data = Immutable.fromJS(result.data);
+        appStore.cursor().setIn(['schReport', 'scoreTable'], data);
+
+        let aToE = [0, 0, 0, 0, 0];
+        let avgScoreChart = data.map(function (v, i) {
+          if(i < data.size - 1) {
+            let
+                a = v.get('alv'),
+                b = v.get('blv'),
+                c = v.get('clv'),
+                d = v.get('dlv'),
+                e = v.get('elv');
+            aToE[0] = aToE[0] + getIntWithDefault(a);
+            aToE[1] = aToE[1] + getIntWithDefault(b);
+            aToE[2] = aToE[2] + getIntWithDefault(c);
+            aToE[3] = aToE[3] + getIntWithDefault(d);
+            aToE[4] = aToE[4] + getIntWithDefault(e);
+          }
+
+          return {
+            name: v.get('schname'),
+            y: parseFloat(v.get('ave_score'))
+          }
+        });
+
+        let stuNumChart = Immutable.fromJS([{
+                name: "A 90-100分",
+                y: aToE[0]
+              }, {
+                name: "B 80-89分",
+                y: aToE[1]
+              }, {
+                name: "C 70-79分",
+                y: aToE[2]
+              }, {
+                name: "D 60-69分",
+                y: aToE[3]
+              }, {
+                name: "E 59分以下",
+                y: aToE[4]
+              }]);
+
+        appStore.cursor().setIn(['schReport', 'stuNumChart'], stuNumChart);
+        appStore.cursor().setIn(['schReport', 'avgScoreChart'], avgScoreChart);
       });
 });
 

@@ -17,6 +17,7 @@ var Area = React.createClass({
      * virtualdom
      */
     render() {
+        console.log("area render...")
         return (
             <div>
                 <Container>
@@ -37,11 +38,11 @@ var Area = React.createClass({
                             <th>B 80-89分</th>
                             <th>C 70-79分</th>
                             <th>D 60-69分</th>
-                            <th>E 59分</th>
+                            <th>E 59分以下</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {this.state.get('schReport').map(function (v, k) {
+                        {this.state.getIn(['schReport', 'scoreTable']).map(function (v, k) {
                             return (
                                 <tr key={k}>
                                     <td>{v.get('schname')}</td>
@@ -74,11 +75,11 @@ var Area = React.createClass({
                     </table>
                     <HighChart style={{height: 400 + 'px'}} type="column" title="区属小学总体考试成绩分布情况" yTitle="人数" seriesName="人数"
                                legend={false} unit="人" colorByPoint={false} dataLabels={true} xType="category"
-                               data={this.state.get('chart1')}
+                               data={this.state.getIn(['schReport', 'stuNumChart']).toJS()}
                         />
                     <HighChart style={{height: 400 + 'px'}} type="column" title="区属各学校平均成绩对比表" yTitle="分数" seriesName="平均分"
                                legend={false} unit="分" colorByPoint={true} dataLabels={true} xType="category"
-                               data={this.state.get('chart2')}
+                               data={this.state.getIn(['schReport', 'avgScoreChart']).toJS()}
                         />
                 </Container>
             </div>
