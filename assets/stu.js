@@ -1,13 +1,18 @@
 import React from 'react';
 import {msg, mixins} from 'iflux';
-//数据中心
 import appStore from './store';
+import {GET_STU_REPORT} from './const';
 
 import Container from './components/container';
 import HighChart from './components/highChart';
 
 var ClazzStu = React.createClass({
     mixins: [mixins.StoreMixin(appStore)],
+
+    componentDidMount() {
+        console.log(this.props.params);
+        msg.emit(GET_STU_REPORT, 1);
+    },
 
     /**
      * virtualdom
@@ -38,21 +43,24 @@ var ClazzStu = React.createClass({
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>学生1</td><td>82</td><td>100</td><td>86</td><td>87%</td><td>95%</td><td>569</td><td>597</td><td>377</td><td>270</td><td>54</td>
-                        </tr>
-                        <tr>
-                            <td>学生2</td><td>83</td><td>100</td><td>53</td><td>87%</td><td>95%</td><td>569</td><td>597</td><td>377</td><td>270</td><td>54</td>
-                        </tr>
-                        <tr>
-                            <td>学生3</td><td>83</td><td>100</td><td>53</td><td>87%</td><td>95%</td><td>569</td><td>597</td><td>377</td><td>270</td><td>54</td>
-                        </tr>
-                        <tr>
-                            <td>学生4</td><td>83</td><td>100</td><td>53</td><td>87%</td><td>95%</td><td>569</td><td>597</td><td>377</td><td>270</td><td>54</td>
-                        </tr>
-                        <tr>
-                            <td>学生5</td><td>83</td><td>100</td><td>53</td><td>87%</td><td>95%</td><td>569</td><td>597</td><td>377</td><td>270</td><td>54</td>
-                        </tr>
+                        {   this.state.getIn(['stuReport', 'scoreTable']) &&
+                        this.state.getIn(['stuReport', 'scoreTable']).map(function (v, k) {
+                            return (
+                                <tr key={k} id={v.get('stuid')}>
+                                    <td>{v.get('stuname')}</td>
+                                    <td>{v.get('score')}</td>
+                                    <td>{v.get('max_score')}</td>
+                                    <td>{v.get('min_score')}</td>
+                                    <td>{v.get('excellence_rate')}</td>
+                                    <td>{v.get('pass_rate')}</td>
+                                    <td>{v.get('a_level')}人</td>
+                                    <td>{v.get('b_level')}人</td>
+                                    <td>{v.get('c_level')}人</td>
+                                    <td>{v.get('d_level')}人</td>
+                                    <td>{v.get('e_level')}人</td>
+                                </tr>
+                            )
+                        }).toArray()}
                         </tbody>
                         <tfoot>
                         <tr><th colSpan="11">

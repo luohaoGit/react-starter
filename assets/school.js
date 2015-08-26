@@ -17,8 +17,8 @@ var School = React.createClass({
     /**
      * virtualdom
      */
-        render() {
-
+    render() {
+console.log(this.state.getIn(['classReport', 'classScoreChart', 'data']).toJS())
         return (
             <div>
                 <Container>
@@ -39,7 +39,7 @@ var School = React.createClass({
                             <th>B 80-89分</th>
                             <th>C 70-79分</th>
                             <th>D 60-69分</th>
-                            <th>E 59分</th>
+                            <th>E 59分以下</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -77,7 +77,12 @@ var School = React.createClass({
                     </table>
                     <HighChart style={{height: 400 + 'px'}} type="column" title="第一小学四年级考试成绩分布情况表" yTitle="人数" seriesName="人数"
                                legend={true} unit="人" colorByPoint={false} dataLabels={true} stackColumn={true}
-                               xCategories={["四一班", "四二班", "四三班", "四四班"]}  data={this.state.get('chart4').toJS()}
+                               xCategories={this.state.getIn(['classReport', 'classScoreChart', 'categories']).toJS()}
+                               data={this.state.getIn(['classReport', 'classScoreChart', 'data']).toJS()}
+                        />
+                    <HighChart style={{height: 400 + 'px'}} type="column" title="学校各班级平均成绩对比表" yTitle="分数" seriesName="平均分"
+                               legend={false} unit="分" colorByPoint={false} dataLabels={true} xType="category" clickEvent={true} link="#/stu/7887"
+                               data={this.state.getIn(['classReport', 'avgScoreChart']).toJS()}
                         />
                 </Container>
             </div>

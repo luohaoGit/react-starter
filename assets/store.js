@@ -36,25 +36,21 @@ let appStore = Store({
   },
 
   classReport: {
-    classScoreTable: []
+    scoreTable: [],
+    avgScoreChart: [],
+    classScoreChart: {
+      categories: [],
+      data: []
+    }
   },
 
-  chart4: [{
-    name: 'A 90-100分',
-    data: [49, 71, 106, 129]
-  }, {
-    name: 'B 80-89分',
-    data: [83, 78, 98, 93]
-  }, {
-    name: 'C 70-79分',
-    data: [48, 38, 39, 41]
-  }, {
-    name: 'D 60-69分',
-    data: [42, 33, 34, 39]
-  }, {
-    name: 'E 59分以下',
-    data: [42, 33, 34, 39]
-  }],
+  stuReport: {
+    scoreTable: [],
+    stuScoreChart: {
+      categories: [],
+      data: []
+    }
+  },
 
   chart5: [{
     name: "四一班",
@@ -153,13 +149,13 @@ function getIntWithDefault(v){
 
 msg.on(GET_SCH_REPORT, (value) => {
   webApi
-      .getSchReport()
+      .getReport(0)
       .done((result) => {
         let data = Immutable.fromJS(result.data);
 
         let aToE = [0, 0, 0, 0, 0];
-        let schScore = [[], [], [], [], []];
-        let schScoreCategries = [];
+        let score = [[], [], [], [], []];
+        let categries = [];
         let avgScoreChart = data.map(function (v, i) {
           if(i < data.size - 1) {
             let
@@ -174,12 +170,12 @@ msg.on(GET_SCH_REPORT, (value) => {
             aToE[3] = aToE[3] + d;
             aToE[4] = aToE[4] + e;
 
-            schScoreCategries.push(v.get('schname'));
-            schScore[0].push(a);
-            schScore[1].push(b);
-            schScore[2].push(c);
-            schScore[3].push(d);
-            schScore[4].push(e);
+            categries.push(v.get('schname'));
+            score[0].push(a);
+            score[1].push(b);
+            score[2].push(c);
+            score[3].push(d);
+            score[4].push(e);
           }
 
           return {
@@ -207,19 +203,19 @@ msg.on(GET_SCH_REPORT, (value) => {
 
         let schScoreChart = Immutable.fromJS([{
                 name: "A 90-100分",
-                data: schScore[0]
+                data: score[0]
               }, {
                 name: "B 80-89分",
-                data: schScore[1]
+                data: score[1]
               }, {
                 name: "C 70-79分",
-                data: schScore[2]
+                data: score[2]
               }, {
                 name: "D 60-69分",
-                data: schScore[3]
+                data: score[3]
               }, {
                 name: "E 59分以下",
-                data: schScore[4]
+                data: score[4]
               }]);
 
         let schReport = Immutable.fromJS({
@@ -227,7 +223,7 @@ msg.on(GET_SCH_REPORT, (value) => {
           stuNumChart: stuNumChart,
           avgScoreChart: avgScoreChart,
           schScoreChart: {
-            categories: Immutable.fromJS(schScoreCategries),
+            categories: Immutable.fromJS(categries),
             data: schScoreChart
           }
         })
@@ -238,15 +234,71 @@ msg.on(GET_SCH_REPORT, (value) => {
 
 msg.on(GET_CLASS_REPORT, (value) => {
   webApi
-      .getClassReport()
+      .getReport(1)
       .done((result) => {
         let data = Immutable.fromJS(result.data);
 
+        let score = [[], [], [], [], []];
+        let categries = [];
+        let avgScoreChart = data.map(function (v, i) {
+          categries.push(v.get('classname'));
+          score[0].push(getIntWithDefault(v.get('a_level')));
+          score[1].push(getIntWithDefault(v.get('b_level')));
+          score[2].push(getIntWithDefault(v.get('c_level')));
+          score[3].push(getIntWithDefault(v.get('d_level')));
+          score[4].push(getIntWithDefault(v.get('e_level')));
+
+          return {
+            name: v.get('classname'),
+            y: parseFloat(v.get('avg_score'))
+          }
+        });
+
+        let classScoreChart = Immutable.fromJS([{
+          name: "A 90-100分",
+          data: score[0]
+        }, {
+          name: "B 80-89分",
+          data: score[1]
+        }, {
+          name: "C 70-79分",
+          data: score[2]
+        }, {
+          name: "D 60-69分",
+          data: score[3]
+        }, {
+          name: "E 59分以下",
+          data: score[4]
+        }]);
+
         let classReport = Immutable.fromJS({
-          scoreTable: data
+          scoreTable: data,
+          avgScoreChart: avgScoreChart,
+          classScoreChart: {
+            categories: Immutable.fromJS(categries),
+            data: classScoreChart
+          }
         })
 
         appStore.cursor().set('classReport', classReport);
+      });
+});
+
+msg.on(GET_STU_REPORT, (value) => {
+  webApi
+      .getReport(2)
+      .done((result) => {
+        let data = Immutable.fromJS(result.data);
+
+        let stuReport = Immutable.fromJS({
+          scoreTable: data,
+          stuScoreChart: {
+            categories: [],
+            data: []
+          }
+        })
+
+        appStore.cursor().set('stuReport', stuReport);
       });
 });
 
