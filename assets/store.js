@@ -3,7 +3,8 @@ import Immutable from 'immutable';
 import {
     GET_SCH_REPORT,
     GET_CLASS_REPORT,
-    GET_STU_REPORT
+    GET_STU_REPORT,
+    GET_QUERY_ITEM
 } from './const';
 
 import webApi from './webapi';
@@ -24,6 +25,10 @@ var uuid = (function() {
  *
  */
 let appStore = Store({
+
+  queryItem: {
+    school: []
+  },
 
   schReport: {
     scoreTable: [],
@@ -290,6 +295,24 @@ msg.on(GET_STU_REPORT, (value) => {
       .done((result) => {
         let data = Immutable.fromJS(result.data);
 
+        data = data.map(function (v, i) {
+          let score = getIntWithDefault(v.get('score'));
+          let level = 'A';
+          if(score >= 90){
+            level = 'A';
+          }else if(score >= 80 && score < 90){
+            level = 'B';
+          }else if(score >= 70 && score < 80){
+            level = 'C';
+          }else if(score >= 60 && score < 70){
+            level = 'D';
+          }else{
+            level = 'E';
+          }
+          v = v.set('level', level);
+          return v;
+        });
+
         let stuReport = Immutable.fromJS({
           scoreTable: data,
           stuScoreChart: {
@@ -299,6 +322,16 @@ msg.on(GET_STU_REPORT, (value) => {
         })
 
         appStore.cursor().set('stuReport', stuReport);
+      });
+});
+
+msg.on(GET_QUERY_ITEM, (value) => {
+  webApi
+      .getReport(3)
+      .done((result) => {
+        let data = Immutable.fromJS(result.data);
+
+        appStore.cursor().setIn(['queryItem', 'school'], data);
       });
 });
 

@@ -18,7 +18,6 @@ var ClazzStu = React.createClass({
      * virtualdom
      */
     render() {
-
         return (
             <div>
                 <Container>
@@ -53,11 +52,11 @@ var ClazzStu = React.createClass({
                                     <td>{v.get('min_score')}</td>
                                     <td>{v.get('excellence_rate')}</td>
                                     <td>{v.get('pass_rate')}</td>
-                                    <td>{v.get('a_level')}人</td>
-                                    <td>{v.get('b_level')}人</td>
-                                    <td>{v.get('c_level')}人</td>
-                                    <td>{v.get('d_level')}人</td>
-                                    <td>{v.get('e_level')}人</td>
+                                    <td>{v.get('level') == 'A' ? '√' : ''}</td>
+                                    <td>{v.get('level') == 'B' ? '√' : ''}</td>
+                                    <td>{v.get('level') == 'C' ? '√' : ''}</td>
+                                    <td>{v.get('level') == 'D' ? '√' : ''}</td>
+                                    <td>{v.get('level') == 'E' ? '√' : ''}</td>
                                 </tr>
                             )
                         }).toArray()}

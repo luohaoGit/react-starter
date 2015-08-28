@@ -1,9 +1,11 @@
 import React from 'react';
 import {msg, mixins} from 'iflux';
 import appStore from './store';
-import {GET_SCH_REPORT} from './const';
+import {GET_SCH_REPORT, GET_QUERY_ITEM} from './const';
 
 import Container from './components/container';
+import Dropdown from './components/dropdown';
+import Radio from './components/radio';
 import HighChart from './components/highChart';
 
 var Area = React.createClass({
@@ -11,6 +13,7 @@ var Area = React.createClass({
 
     componentDidMount() {
         msg.emit(GET_SCH_REPORT, 1);
+        msg.emit(GET_QUERY_ITEM, 1);
     },
 
     /**
@@ -20,7 +23,39 @@ var Area = React.createClass({
         console.log("area render...")
         return (
             <div>
-                <Container>
+
+                <div className="ui fluid form">
+                    <div className="three fields">
+                        <div className="field">
+                            <label>学校</label>
+                            <Dropdown init={true} name="学校" data={this.state.getIn(['queryItem', 'school'])}></Dropdown>
+                        </div>
+                        <div className="field">
+                            <label>年级</label>
+                            <Dropdown init={true} name="年级"></Dropdown>
+                        </div>
+                        <div className="field">
+                            <label>学科</label>
+                            <Dropdown init={true} name="学科"></Dropdown>
+                        </div>
+                    </div>
+                    <div className="three fields">
+                        <div className="field">
+                            <label>学期</label>
+                            <Radio init={true}></Radio>
+                            <Radio init={true}></Radio>
+                        </div>
+                        <div className="field">
+                            <label>试卷</label>
+                            <Dropdown init={true} name="试卷"></Dropdown>
+                        </div>
+                        <div className="field">
+                        </div>
+                    </div>
+                    <div className="ui submit button">查询</div>
+                </div>
+
+                <div className="ui segment">
                     <h1 className="ui header">区考试成绩表</h1>
                     <table className="ui celled structured table">
                         <thead>
@@ -87,7 +122,8 @@ var Area = React.createClass({
                                clickEvent={true} link="#/school/987"
                                data={this.state.getIn(['schReport', 'schScoreChart', 'data']).toJS()}
                         />
-                </Container>
+
+                </div>
             </div>
         );
     }
