@@ -1,6 +1,6 @@
 ////////////webapi//////////////////
 
-exports.getReport = (type) => {
+exports.getData = (type, param) => {
     var domain = "http://111.211.167.6:8094"
     var deferred = new $.Deferred;
 
@@ -19,11 +19,15 @@ exports.getReport = (type) => {
         case 3:
             url = domain + "/api.php/home/testpaper/getschinfobyareaid?areaid=110206";
             break;
+        case 4:
+            url = domain + "/api.php/home/inform/getinform";
+            break;
     }
 
     $.ajax({
         url: url,
         dataType: 'json',
+        data: param,
         success: function(data) {
             deferred.resolve(data);
         },

@@ -5,7 +5,7 @@ import {GET_SCH_REPORT, GET_QUERY_ITEM} from './const';
 
 import Container from './components/container';
 import Dropdown from './components/dropdown';
-import Radio from './components/radio';
+import RadioGroup from './components/radioGroup';
 import HighChart from './components/highChart';
 
 var Area = React.createClass({
@@ -28,22 +28,21 @@ var Area = React.createClass({
                     <div className="three fields">
                         <div className="field">
                             <label>学校</label>
-                            <Dropdown init={true} name="学校" key="schid" val="schname" data={this.state.getIn(['queryItem', 'school'])}></Dropdown>
+                            <Dropdown init={true} label="学校" name="schid" key="schid" val="schname" data={this.state.getIn(['queryItem', 'school'])}></Dropdown>
                         </div>
                         <div className="field">
                             <label>年级</label>
-                            <Dropdown init={true} name="年级" data={this.state.getIn(['queryItem', 'grade'])}></Dropdown>
+                            <Dropdown init={true} label="年级" name="gradeid" data={this.state.getIn(['queryItem', 'grade'])}></Dropdown>
                         </div>
                         <div className="field">
                             <label>学科</label>
-                            <Dropdown init={true} name="学科" data={this.state.getIn(['queryItem', 'subject'])}></Dropdown>
+                            <Dropdown init={true} label="学科" name="subjectid" data={this.state.getIn(['queryItem', 'subject'])}></Dropdown>
                         </div>
                     </div>
                     <div className="three fields">
                         <div className="field">
                             <label>学期</label>
-                            <Radio init={true}></Radio>
-                            <Radio init={true}></Radio>
+                            <RadioGroup name="term" data={this.state.getIn(['queryItem', 'term'])}></RadioGroup>
                         </div>
                         <div className="field">
                             <label>试卷</label>

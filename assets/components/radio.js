@@ -5,11 +5,11 @@ var Radio = React.createClass({
 	mixins: [PureRenderMixin],
 
 	render() {
-		var {className, name, ...other} = this.props;
+		var {className, name, key, val, ...other} = this.props;
 		return (
 			<div className="ui radio checkbox">
-				<input type="radio" name="fruit" className="hidden" />
-				<label>第一学期</label>
+				<input type="radio" name={name} id={key} className="hidden" />
+				<label>{val}</label>
 			</div>
 		);
 	},
