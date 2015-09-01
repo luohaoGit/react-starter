@@ -27,7 +27,9 @@ var uuid = (function() {
 let appStore = Store({
 
   queryItem: {
-    school: []
+    school: [],
+    grade: [],
+    subject: []
   },
 
   schReport: {
@@ -331,7 +333,32 @@ msg.on(GET_QUERY_ITEM, (value) => {
       .done((result) => {
         let data = Immutable.fromJS(result.data);
 
-        appStore.cursor().setIn(['queryItem', 'school'], data);
+        let grade = Immutable.fromJS([
+          {key: 1, val: '一年级'},
+          {key: 2, val: '二年级'},
+          {key: 3, val: '三年级'},
+          {key: 4, val: '四年级'},
+          {key: 5, val: '五年级'},
+          {key: 6, val: '六年级'},
+          {key: 7, val: '七年级'},
+          {key: 8, val: '八年级'},
+          {key: 9, val: '九年级'}
+        ]);
+        let subject = Immutable.fromJS([
+          {key: 10, val: '语文'},
+          {key: 11, val: '数学'},
+          {key: 12, val: '英语'},
+          {key: 13, val: '物理'},
+          {key: 14, val: '化学'}
+        ]);
+
+        let queryItem = Immutable.fromJS({
+          school: data,
+          grade: grade,
+          subject: subject
+        })
+
+        appStore.cursor().set('queryItem', queryItem);
       });
 });
 

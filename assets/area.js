@@ -28,15 +28,15 @@ var Area = React.createClass({
                     <div className="three fields">
                         <div className="field">
                             <label>学校</label>
-                            <Dropdown init={true} name="学校" data={this.state.getIn(['queryItem', 'school'])}></Dropdown>
+                            <Dropdown init={true} name="学校" key="schid" val="schname" data={this.state.getIn(['queryItem', 'school'])}></Dropdown>
                         </div>
                         <div className="field">
                             <label>年级</label>
-                            <Dropdown init={true} name="年级"></Dropdown>
+                            <Dropdown init={true} name="年级" data={this.state.getIn(['queryItem', 'grade'])}></Dropdown>
                         </div>
                         <div className="field">
                             <label>学科</label>
-                            <Dropdown init={true} name="学科"></Dropdown>
+                            <Dropdown init={true} name="学科" data={this.state.getIn(['queryItem', 'subject'])}></Dropdown>
                         </div>
                     </div>
                     <div className="three fields">

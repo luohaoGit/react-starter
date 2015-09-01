@@ -4,8 +4,15 @@ let PureRenderMixin = React.addons.PureRenderMixin;
 var Dropdown = React.createClass({
 	mixins: [PureRenderMixin],
 
+	getDefaultProps() {
+		return {
+			key: 'key',
+			val: 'val'
+		};
+	},
+
 	render() {
-		var {className, name, data, ...other} = this.props;
+		var {className, name, data, key, val, ...other} = this.props;
 
 		var onClick = function(e){
 			console.log(e.target.id)
@@ -18,8 +25,8 @@ var Dropdown = React.createClass({
 				<div className="menu">
 					{data && data.map(function (v, k) {
 						return (
-							<div key={v.get('schid')} id={v.get('schid')} className="item" onClick={onClick}>
-								{v.get('schname')}
+							<div key={v.get(key)} id={v.get(key)} className="item" onClick={onClick}>
+								{v.get(val)}
 							</div>
 						)
 					}).toArray()}
