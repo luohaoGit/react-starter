@@ -9,5 +9,5 @@ export default {
     GET_QUERY_ITEM: "getQueryItem",
     GET_INFORM_ITEM: "getInformItem",
 
-    DROPDOWN_CHANGED: "dropdownChanged"
+    FORM_VALUE_CHANGED: "formValueChanged"
 };

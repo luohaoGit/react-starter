@@ -6,7 +6,7 @@ import {
     GET_STU_REPORT,
     GET_QUERY_ITEM,
 
-    DROPDOWN_CHANGED
+    FORM_VALUE_CHANGED
 } from './const';
 
 import webApi from './webapi';
@@ -32,10 +32,13 @@ let appStore = Store({
     school: [],
     grade: [],
     subject: [],
-    term: []
+    term: [],
+    inform: []
   },
 
-  queryParam: {},
+  queryParam: {
+    areaid: 1
+  },
 
   schReport: {
     scoreTable: [],
@@ -159,12 +162,13 @@ function getIntWithDefault(v){
   return isNaN(parseInt(v)) ? 0 : parseInt(v);
 }
 
-function serialize(data){
-  var param = '';
-  data.map(function (v, k) {
-    param += (k + "=" + v.get(k));
-  });
-  return param;
+function check(names, o){
+  for(var i=0; i<names.length; i++){
+    if(!o[names[i]]){
+      return false;
+    }
+  }
+  return true;
 }
 
 msg.on(GET_SCH_REPORT, (value) => {
@@ -380,13 +384,26 @@ msg.on(GET_QUERY_ITEM, (value) => {
       });
 });
 
-msg.on(DROPDOWN_CHANGED, (value) => {
+msg.on(FORM_VALUE_CHANGED, (value) => {
   appStore.cursor().setIn(['queryParam', value.name], value.val);
   let param = appStore.cursor().get('queryParam').toJS();
+
+  if(!check(['gradeid', 'subjectid', 'termid', 'schid', 'areaid'], param)) return;
+
+  param={
+    gradeid:6,
+    subjectid:1,
+    termid:1,
+    schid:3225,
+    areaid:110206
+  }
+
   webApi
       .getData(4, param)
       .done((result) => {
-        console.log(result)
+        let data = Immutable.fromJS(result.data);
+
+        appStore.cursor().setIn(['queryItem', 'inform'], data);
       });
 });
 

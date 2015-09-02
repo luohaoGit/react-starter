@@ -28,7 +28,7 @@ var Area = React.createClass({
                     <div className="three fields">
                         <div className="field">
                             <label>学校</label>
-                            <Dropdown init={true} label="学校" name="schid" key="schid" val="schname" data={this.state.getIn(['queryItem', 'school'])}></Dropdown>
+                            <Dropdown init={true} label="学校" name="schid" keyStr="schid" val="schname" data={this.state.getIn(['queryItem', 'school'])}></Dropdown>
                         </div>
                         <div className="field">
                             <label>年级</label>
@@ -42,16 +42,16 @@ var Area = React.createClass({
                     <div className="three fields">
                         <div className="field">
                             <label>学期</label>
-                            <RadioGroup name="term" data={this.state.getIn(['queryItem', 'term'])}></RadioGroup>
+                            <RadioGroup name="termid" data={this.state.getIn(['queryItem', 'term'])}></RadioGroup>
                         </div>
                         <div className="field">
-                            <label>试卷</label>
-                            <Dropdown init={true} name="试卷"></Dropdown>
+                            <label>测评名称</label>
+                            <Dropdown init={true} label="测评名称" name="informid"
+                                      keyStr="id" val="title" data={this.state.getIn(['queryItem', 'inform'])}></Dropdown>
                         </div>
                         <div className="field">
                         </div>
                     </div>
-                    <div className="ui submit button">查询</div>
                 </div>
 
                 <div className="ui segment">

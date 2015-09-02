@@ -1,6 +1,6 @@
 import React from 'react/addons';
 let PureRenderMixin = React.addons.PureRenderMixin;
-import {DROPDOWN_CHANGED} from '../const';
+import {FORM_VALUE_CHANGED} from '../const';
 import {msg} from 'iflux';
 
 var Dropdown = React.createClass({
@@ -8,17 +8,17 @@ var Dropdown = React.createClass({
 
 	getDefaultProps() {
 		return {
-			key: 'key',
+			keyStr: 'key',
 			val: 'val',
 			init: true
 		};
 	},
 
 	render() {
-		var {className, label, name, data, key, val, ...other} = this.props;
+		var {className, label, name, data, keyStr, val, ...other} = this.props;
 
 		var onClick = function(e){
-			msg.emit(DROPDOWN_CHANGED, {name: name, val: e.target.id});
+			msg.emit(FORM_VALUE_CHANGED, {name: name, val: e.target.id});
 		}
 
 		return (
@@ -28,7 +28,7 @@ var Dropdown = React.createClass({
 				<div className="menu">
 					{data && data.map(function (v, k) {
 						return (
-							<div key={k} id={k} className="item" onClick={onClick}>
+							<div key={k} id={v.get(keyStr)} className="item" onClick={onClick}>
 								{v.get(val)}
 							</div>
 						)
