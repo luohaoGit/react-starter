@@ -59,7 +59,7 @@ var TSchoolClazz = React.createClass({
                                 <a className="item">2</a>
                                 <a className="item">3</a>
                                 <a className="item">4</a>
-                                <a className="icon item">写一页</a>
+                                <a className="icon item">下一页</a>
                             </div>
                         </th>
                         </tr></tfoot>

@@ -2,12 +2,17 @@ import React from 'react';
 import {msg, mixins} from 'iflux';
 //数据中心
 import appStore from './store';
+import {GET_T_SCH_REPORT} from './const';
 
 import Container from './components/container';
 import HighChart from './components/highChart';
 
 var Area = React.createClass({
     mixins: [mixins.StoreMixin(appStore)],
+
+    componentDidMount() {
+        msg.emit(GET_T_SCH_REPORT, 1);
+    },
 
     /**
      * virtualdom
@@ -26,30 +31,42 @@ var Area = React.createClass({
                             <th>识记</th>
                             <th>理解</th>
                             <th>应用</th>
+                            <th>评价</th>
                             <th>分析</th>
                             <th>综合</th>
-                            <th>评价</th>
                             <th>总得分率</th>
                         </tr>
                         <tbody>
-                        <tr>
-                            <td rowSpan="6">第一小学</td><td>知识点1</td><td>87</td><td>95</td><td>67</td><td>67</td><td>34</td><td>64</td><td>54</td>
-                        </tr>
-                        <tr>
-                            <td>知识点2</td><td>87</td><td>95</td><td>67</td><td>67</td><td>34</td><td>64</td><td>54</td>
-                        </tr>
-                        <tr>
-                            <td>知识点3</td><td>87</td><td>95</td><td>67</td><td>67</td><td>34</td><td>64</td><td>54</td>
-                        </tr>
-                        <tr>
-                            <td>知识点4</td><td>87</td><td>95</td><td>67</td><td>67</td><td>34</td><td>64</td><td>54</td>
-                        </tr>
-                        <tr>
-                            <td>知识点5</td><td>87</td><td>95</td><td>67</td><td>67</td><td>34</td><td>64</td><td>54</td>
-                        </tr>
-                        <tr>
-                            <td>知识点6</td><td>87</td><td>95</td><td>67</td><td>67</td><td>34</td><td>64</td><td>54</td>
-                        </tr>
+                        {this.state.getIn(['tSchReport', 'scoreTable']).map(function (val, k) {
+                            var rowSpan = val.get('detail').size;
+                            var detail = val.get('detail').map(function(v, k){
+
+                                var firstCol;
+                                if(k == 0){
+                                    firstCol = <td rowSpan={rowSpan}>{val.get('schname')}</td>;
+                                }else{
+                                    firstCol = '';
+                                }
+                                console.log(v.get('scoreDetail'))
+                                return (
+                                    <tr>
+                                        {firstCol}
+                                        <td>{v.get('kpname')}</td>
+                                        <td>{v.get('scoreDetail').get(0).get('kapScore')}</td>
+                                        <td>{v.get('scoreDetail').get(1).get('kapScore')}</td>
+                                        <td>{v.get('scoreDetail').get(2).get('kapScore')}</td>
+                                        <td>{v.get('scoreDetail').get(3).get('kapScore')}</td>
+                                        <td>{v.get('scoreDetail').get(4).get('kapScore')}</td>
+                                        <td>{v.get('scoreDetail').get(5).get('kapScore')}</td>
+                                        <td>0</td>
+                                    </tr>
+                                )
+                            }).toArray();
+
+                            return (
+                                {detail}
+                            )
+                        }).toArray()}
                         </tbody>
                         <tfoot>
                         <tr><th colSpan="11">
@@ -59,7 +76,7 @@ var Area = React.createClass({
                                 <a className="item">2</a>
                                 <a className="item">3</a>
                                 <a className="item">4</a>
-                                <a className="icon item">写一页</a>
+                                <a className="icon item">下一页</a>
                             </div>
                         </th>
                         </tr></tfoot>
@@ -94,7 +111,7 @@ var Area = React.createClass({
                                 <a className="item">2</a>
                                 <a className="item">3</a>
                                 <a className="item">4</a>
-                                <a className="icon item">写一页</a>
+                                <a className="icon item">下一页</a>
                             </div>
                         </th>
                         </tr></tfoot>
@@ -146,7 +163,7 @@ var Area = React.createClass({
                                 <a className="item">2</a>
                                 <a className="item">3</a>
                                 <a className="item">4</a>
-                                <a className="icon item">写一页</a>
+                                <a className="icon item">下一页</a>
                             </div>
                         </th>
                         </tr></tfoot>

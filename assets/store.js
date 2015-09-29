@@ -6,7 +6,9 @@ import {
     GET_STU_REPORT,
     GET_QUERY_ITEM,
 
-    FORM_VALUE_CHANGED
+    FORM_VALUE_CHANGED,
+
+    GET_T_SCH_REPORT
 } from './const';
 
 import webApi from './webapi';
@@ -65,6 +67,10 @@ let appStore = Store({
       categories: [],
       data: []
     }
+  },
+
+  tSchReport: {
+    scoreTable: []
   },
 
   chart5: [{
@@ -406,6 +412,21 @@ msg.on(FORM_VALUE_CHANGED, (value) => {
         appStore.cursor().setIn(['queryItem', 'inform'], data);
       });
 });
+
+msg.on(GET_T_SCH_REPORT, (value) => {
+  webApi
+      .getData(5)
+      .done((result) => {
+        let data = Immutable.fromJS(result.data);
+
+        let tSchReport = Immutable.fromJS({
+          scoreTable: data
+        })
+
+        appStore.cursor().set('tSchReport', tSchReport);
+      });
+});
+
 
 /*
 msg.on(TODO_LIST_TOGGLE, (id) => {

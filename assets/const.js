@@ -9,5 +9,7 @@ export default {
     GET_QUERY_ITEM: "getQueryItem",
     GET_INFORM_ITEM: "getInformItem",
 
-    FORM_VALUE_CHANGED: "formValueChanged"
+    FORM_VALUE_CHANGED: "formValueChanged",
+
+    GET_T_SCH_REPORT: "getTSchReport"
 };

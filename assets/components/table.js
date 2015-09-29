@@ -72,7 +72,7 @@ var Table = React.createClass({
 								<div className="ui right floated pagination menu">
 									<a className="icon item">上一页</a>
 									{pageBar}
-									<a className="icon item">写一页</a>
+									<a className="icon item">下一页</a>
 								</div>
 							</th>
 						</tr>
