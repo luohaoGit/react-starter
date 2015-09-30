@@ -8,7 +8,8 @@ import {
 
     FORM_VALUE_CHANGED,
 
-    GET_T_SCH_REPORT
+    GET_T_SCH_REPORT,
+    GET_T_SCH_KP_REPORT
 } from './const';
 
 import webApi from './webapi';
@@ -70,7 +71,11 @@ let appStore = Store({
   },
 
   tSchReport: {
-    scoreTable: []
+    scoreTable: [],
+    kpData1: [],
+    kpChart1: [],
+    kpData2: [],
+    kpChart2: []
   },
 
   chart5: [{
@@ -424,6 +429,16 @@ msg.on(GET_T_SCH_REPORT, (value) => {
         })
 
         appStore.cursor().set('tSchReport', tSchReport);
+      });
+});
+
+msg.on(GET_T_SCH_KP_REPORT, (value) => {
+  webApi
+      .getData(6)
+      .done((result) => {
+        let data = Immutable.fromJS(result.data);
+
+        appStore.cursor().setIn(['tSchReport', 'kpData1'], data);
       });
 });
 

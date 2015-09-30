@@ -25,6 +25,9 @@ exports.getData = (type, param) => {
         case 5:
             url = domain + "/api.php/Home/Analyze/getSchApKp?informid=58&gradeid=1&subjectid=1";
             break;
+        case 6:
+            url = domain + "/api.php/Home/Analyze/getKpSchPropCount?informid=58&areaid=1";
+            break;
     }
 
     $.ajax({

@@ -11,5 +11,6 @@ export default {
 
     FORM_VALUE_CHANGED: "formValueChanged",
 
-    GET_T_SCH_REPORT: "getTSchReport"
+    GET_T_SCH_REPORT: "getTSchReport",
+    GET_T_SCH_KP_REPORT: "getTSchKPReport"
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import {msg, mixins} from 'iflux';
 //数据中心
 import appStore from './store';
-import {GET_T_SCH_REPORT} from './const';
+import {GET_T_SCH_REPORT, GET_T_SCH_KP_REPORT} from './const';
 
 import Container from './components/container';
 import HighChart from './components/highChart';
@@ -12,13 +12,14 @@ var Area = React.createClass({
 
     componentDidMount() {
         msg.emit(GET_T_SCH_REPORT, 1);
+        msg.emit(GET_T_SCH_KP_REPORT, 1);
     },
 
     /**
      * virtualdom
      */
         render() {
-
+        console.log(this.state.getIn(['tSchReport', 'kpData1']))
         return (
             <div>
                 <Container>
@@ -47,7 +48,7 @@ var Area = React.createClass({
                                 }else{
                                     firstCol = '';
                                 }
-                                console.log(v.get('scoreDetail'))
+
                                 return (
                                     <tr>
                                         {firstCol}
@@ -88,8 +89,9 @@ var Area = React.createClass({
                         <thead>
                         <tr>
                             <th>知识点</th>
-                            <th>第一小学得分率</th>
-                            <th>第二小学得分率</th>
+                            <th>知识点</th>
+                            <th>知识点</th>
+
                             <th>区平均分</th>
                         </tr>
                         <tbody>
