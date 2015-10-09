@@ -31,18 +31,6 @@ var uuid = (function() {
  */
 let appStore = Store({
 
-  queryItem: {
-    school: [],
-    grade: [],
-    subject: [],
-    term: [],
-    inform: []
-  },
-
-  queryParam: {
-    areaid: 1
-  },
-
   schReport: {
     scoreTable: [],
     stuNumChart: [],
@@ -352,69 +340,6 @@ msg.on(GET_STU_REPORT, (value) => {
         })
 
         appStore.cursor().set('stuReport', stuReport);
-      });
-});
-
-msg.on(GET_QUERY_ITEM, (value) => {
-  webApi
-      .getData(3)
-      .done((result) => {
-        let data = Immutable.fromJS(result.data);
-
-        let grade = Immutable.fromJS([
-          {key: 1, val: '一年级'},
-          {key: 2, val: '二年级'},
-          {key: 3, val: '三年级'},
-          {key: 4, val: '四年级'},
-          {key: 5, val: '五年级'},
-          {key: 6, val: '六年级'},
-          {key: 7, val: '七年级'},
-          {key: 8, val: '八年级'},
-          {key: 9, val: '九年级'}
-        ]);
-        let subject = Immutable.fromJS([
-          {key: 1, val: '语文'},
-          {key: 2, val: '数学'},
-          {key: 3, val: '英语'},
-          {key: 4, val: '物理'},
-          {key: 5, val: '化学'}
-        ]);
-        let term = Immutable.fromJS([
-          {key: 1, val: '第一学期'},
-          {key: 2, val: '第二学期'}
-        ]);
-
-        let queryItem = Immutable.fromJS({
-          school: data,
-          grade: grade,
-          subject: subject,
-          term: term
-        })
-
-        appStore.cursor().set('queryItem', queryItem);
-      });
-});
-
-msg.on(FORM_VALUE_CHANGED, (value) => {
-  appStore.cursor().setIn(['queryParam', value.name], value.val);
-  let param = appStore.cursor().get('queryParam').toJS();
-
-  if(!check(['gradeid', 'subjectid', 'termid', 'schid', 'areaid'], param)) return;
-
-  param={
-    gradeid:6,
-    subjectid:1,
-    termid:1,
-    schid:3225,
-    areaid:110206
-  }
-
-  webApi
-      .getData(4, param)
-      .done((result) => {
-        let data = Immutable.fromJS(result.data);
-
-        appStore.cursor().setIn(['queryItem', 'inform'], data);
       });
 });
 

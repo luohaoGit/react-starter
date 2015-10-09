@@ -47,7 +47,9 @@ console.log(this.state.getIn(['classReport', 'classScoreChart', 'data']).toJS())
                             this.state.getIn(['classReport', 'scoreTable']).map(function (v, k) {
                             return (
                                 <tr key={k} id={v.get('classid')}>
-                                    <td>{v.get('classname')}</td>
+                                    <td>
+                                        <a href="#/stu/7887">{v.get('classname')}</a>
+                                    </td>
                                     <td>{v.get('avg_score')}</td>
                                     <td>{v.get('max_score')}</td>
                                     <td>{v.get('min_score')}</td>
@@ -81,7 +83,7 @@ console.log(this.state.getIn(['classReport', 'classScoreChart', 'data']).toJS())
                                data={this.state.getIn(['classReport', 'classScoreChart', 'data']).toJS()}
                         />
                     <HighChart style={{height: 400 + 'px'}} type="column" title="学校各班级平均成绩对比表" yTitle="分数" seriesName="平均分"
-                               legend={false} unit="分" colorByPoint={false} dataLabels={true} xType="category" clickEvent={true} link="#/stu/7887"
+                               legend={false} unit="分" colorByPoint={false} dataLabels={true} xType="category"
                                data={this.state.getIn(['classReport', 'avgScoreChart']).toJS()}
                         />
                 </Container>

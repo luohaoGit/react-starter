@@ -12,5 +12,5 @@ module.exports = {
     ]
   },
   debug: true,
-  devtool: "inline-source-map"
+  //devtool: "inline-source-map"
 };

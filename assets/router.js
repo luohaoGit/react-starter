@@ -17,7 +17,7 @@ var App = React.createClass({
 		router: React.PropTypes.func
 	},
 
-	render: function () {
+/*	render: function () {
 		var name = this.context.router.getCurrentPath();
 		return (
 			<div>
@@ -27,6 +27,15 @@ var App = React.createClass({
 						<Link to="tArea">t区域     </Link>
 					</li>
 				</ul>
+				<RouteHandler key={name}/>
+			</div>
+		);
+	}*/
+
+	render: function () {
+		var name = this.context.router.getCurrentPath();
+		return (
+			<div>
 				<RouteHandler key={name}/>
 			</div>
 		);

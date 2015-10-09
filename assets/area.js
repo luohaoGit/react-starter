@@ -4,8 +4,6 @@ import appStore from './store';
 import {GET_SCH_REPORT, GET_QUERY_ITEM} from './const';
 
 import Container from './components/container';
-import Dropdown from './components/dropdown';
-import RadioGroup from './components/radioGroup';
 import HighChart from './components/highChart';
 
 var Area = React.createClass({
@@ -13,7 +11,6 @@ var Area = React.createClass({
 
     componentDidMount() {
         msg.emit(GET_SCH_REPORT, 1);
-        msg.emit(GET_QUERY_ITEM, 1);
     },
 
     /**
@@ -23,37 +20,6 @@ var Area = React.createClass({
         console.log("area render...")
         return (
             <div>
-
-                <div className="ui fluid form">
-                    <div className="three fields">
-                        <div className="field">
-                            <label>学校</label>
-                            <Dropdown init={true} label="学校" name="schid" keyStr="schid" val="schname" data={this.state.getIn(['queryItem', 'school'])}></Dropdown>
-                        </div>
-                        <div className="field">
-                            <label>年级</label>
-                            <Dropdown init={true} label="年级" name="gradeid" data={this.state.getIn(['queryItem', 'grade'])}></Dropdown>
-                        </div>
-                        <div className="field">
-                            <label>学科</label>
-                            <Dropdown init={true} label="学科" name="subjectid" data={this.state.getIn(['queryItem', 'subject'])}></Dropdown>
-                        </div>
-                    </div>
-                    <div className="three fields">
-                        <div className="field">
-                            <label>学期</label>
-                            <RadioGroup name="termid" data={this.state.getIn(['queryItem', 'term'])}></RadioGroup>
-                        </div>
-                        <div className="field">
-                            <label>测评名称</label>
-                            <Dropdown init={true} label="测评名称" name="informid"
-                                      keyStr="id" val="title" data={this.state.getIn(['queryItem', 'inform'])}></Dropdown>
-                        </div>
-                        <div className="field">
-                        </div>
-                    </div>
-                </div>
-
                 <div className="ui segment">
                     <h1 className="ui header">区考试成绩表</h1>
                     <table className="ui celled structured table">
@@ -79,7 +45,9 @@ var Area = React.createClass({
                         {this.state.getIn(['schReport', 'scoreTable']).map(function (v, k) {
                             return (
                                 <tr key={k} id={v.get('schid')}>
-                                    <td>{v.get('schname')}</td>
+                                    <td>
+                                        <a href="#/school/987">{v.get('schname')}</a>
+                                    </td>
                                     <td>{v.get('ave_score')}</td>
                                     <td>{v.get('max_score')}</td>
                                     <td>{v.get('min_score')}</td>
@@ -118,7 +86,6 @@ var Area = React.createClass({
                     <HighChart style={{height: 400 + 'px'}} type="column" title="区属各小学成绩分布情况统计表" yTitle="人数" seriesName="人数"
                                legend={true} unit="人" colorByPoint={false} dataLabels={true}
                                xCategories={this.state.getIn(['schReport', 'schScoreChart', 'categories']).toJS()}
-                               clickEvent={true} link="#/school/987"
                                data={this.state.getIn(['schReport', 'schScoreChart', 'data']).toJS()}
                         />
 
