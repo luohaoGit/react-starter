@@ -4,17 +4,17 @@ exports.getData = (type, param) => {
     var domain = "http://111.211.167.6:8094"
     var deferred = new $.Deferred;
 
-    var url = domain + "/api.php/Home/Analyze/getSchReport.html?informid=1";
+    var url = domain + "/api.php/Home/Analyze/getSchReport.html" + param;
     switch(type)
     {
         case 0:
-            url = domain + "/api.php/Home/Analyze/getSchReport.html?informid=1";
+            url = domain + "/api.php/Home/Analyze/getSchReport.html" + param;
             break;
         case 1:
-            url = domain + "/api.php/Home/Analyze/getClassReport.html?informid=1&schid=1";
+            url = domain + "/api.php/Home/Analyze/getClassReport.html" + param;
             break;
         case 2:
-            url = domain + "/api.php/Home/Analyze/getStuReport.html?informid=1&schid=1&classid=11";
+            url = domain + "/api.php/Home/Analyze/getStuReport.html" + param;
             break;
         case 3:
             url = domain + "/api.php/home/testpaper/getschinfobyareaid?areaid=110206";
@@ -35,6 +35,7 @@ exports.getData = (type, param) => {
         dataType: 'json',
         data: param,
         success: function(data) {
+            console.log(data)
             deferred.resolve(data);
         },
         error: function(err) {

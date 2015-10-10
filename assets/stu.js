@@ -10,8 +10,7 @@ var ClazzStu = React.createClass({
     mixins: [mixins.StoreMixin(appStore)],
 
     componentDidMount() {
-        console.log(this.props.params);
-        msg.emit(GET_STU_REPORT, 1);
+        msg.emit(GET_STU_REPORT, "&classid=" + this.props.params.id);
     },
 
     /**
@@ -61,18 +60,6 @@ var ClazzStu = React.createClass({
                             )
                         }).toArray()}
                         </tbody>
-                        <tfoot>
-                        <tr><th colSpan="11">
-                            <div className="ui right floated pagination menu">
-                                <a className="icon item">上一页</a>
-                                <a className="item">1</a>
-                                <a className="item">2</a>
-                                <a className="item">3</a>
-                                <a className="item">4</a>
-                                <a className="icon item">下一页</a>
-                            </div>
-                        </th>
-                        </tr></tfoot>
                     </table>
                     <HighChart style={{height: 400 + 'px'}} type="column" title="四一班学生考试成绩分布情况表" yTitle="人数" seriesName="人数"
                                legend={false} unit="人" colorByPoint={false} dataLabels={true} xType="category"

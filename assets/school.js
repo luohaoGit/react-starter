@@ -10,8 +10,7 @@ var School = React.createClass({
     mixins: [mixins.StoreMixin(appStore)],
 
     componentDidMount() {
-        console.log(this.props.params);
-        msg.emit(GET_CLASS_REPORT, 1);
+        msg.emit(GET_CLASS_REPORT, "&schid=" + this.props.params.id);
     },
 
     /**
@@ -48,7 +47,7 @@ console.log(this.state.getIn(['classReport', 'classScoreChart', 'data']).toJS())
                             return (
                                 <tr key={k} id={v.get('classid')}>
                                     <td>
-                                        <a href="#/stu/7887">{v.get('classname')}</a>
+                                        <a href={"#/stu/" + v.get('classid')}>{v.get('classname')}</a>
                                     </td>
                                     <td>{v.get('avg_score')}</td>
                                     <td>{v.get('max_score')}</td>
@@ -64,18 +63,6 @@ console.log(this.state.getIn(['classReport', 'classScoreChart', 'data']).toJS())
                             )
                         }).toArray()}
                         </tbody>
-                        <tfoot>
-                        <tr><th colSpan="11">
-                            <div className="ui right floated pagination menu">
-                                <a className="icon item">上一页</a>
-                                <a className="item">1</a>
-                                <a className="item">2</a>
-                                <a className="item">3</a>
-                                <a className="item">4</a>
-                                <a className="icon item">下一页</a>
-                            </div>
-                        </th>
-                        </tr></tfoot>
                     </table>
                     <HighChart style={{height: 400 + 'px'}} type="column" title="第一小学四年级考试成绩分布情况表" yTitle="人数" seriesName="人数"
                                legend={true} unit="人" colorByPoint={false} dataLabels={true} stackColumn={true}

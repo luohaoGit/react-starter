@@ -46,7 +46,8 @@ var Area = React.createClass({
                             return (
                                 <tr key={k} id={v.get('schid')}>
                                     <td>
-                                        <a href="#/school/987">{v.get('schname')}</a>
+                                        {k || !!iconProps && <Icon {...cloneProps} />}
+                                        <a href={"#/school/" + v.get('schid')}>{v.get('schname')}</a>
                                     </td>
                                     <td>{v.get('ave_score')}</td>
                                     <td>{v.get('max_score')}</td>
@@ -62,18 +63,6 @@ var Area = React.createClass({
                             )
                         }).toArray()}
                         </tbody>
-                        <tfoot>
-                        <tr><th colSpan="11">
-                            <div className="ui right floated pagination menu">
-                                <a className="icon item">上一页</a>
-                                <a className="item">1</a>
-                                <a className="item">2</a>
-                                <a className="item">3</a>
-                                <a className="item">4</a>
-                                <a className="icon item">下一页</a>
-                            </div>
-                        </th>
-                        </tr></tfoot>
                     </table>
                     <HighChart style={{height: 400 + 'px'}} type="column" title="区属小学总体考试成绩分布情况" yTitle="人数" seriesName="人数"
                                legend={false} unit="人" colorByPoint={false} dataLabels={true} xType="category"

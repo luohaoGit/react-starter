@@ -170,9 +170,15 @@ function check(names, o){
   return true;
 }
 
+var param = "";
+
 msg.on(GET_SCH_REPORT, (value) => {
+  var i = location.href.indexOf("?");
+  var j = location.href.indexOf("#");
+  param = location.href.substring(i, j);
+
   webApi
-      .getData(0)
+      .getData(0, param)
       .done((result) => {
         let data = Immutable.fromJS(result.data);
 
@@ -257,7 +263,7 @@ msg.on(GET_SCH_REPORT, (value) => {
 
 msg.on(GET_CLASS_REPORT, (value) => {
   webApi
-      .getData(1)
+      .getData(1, param + value)
       .done((result) => {
         let data = Immutable.fromJS(result.data);
 
@@ -309,7 +315,7 @@ msg.on(GET_CLASS_REPORT, (value) => {
 
 msg.on(GET_STU_REPORT, (value) => {
   webApi
-      .getData(2)
+      .getData(2, param + value)
       .done((result) => {
         let data = Immutable.fromJS(result.data);
 
